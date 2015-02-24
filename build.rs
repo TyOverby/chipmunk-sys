@@ -1,20 +1,7 @@
-#![feature(old_io)]
-
 extern crate gcc;
 //extern crate bindgen;
 
-use std::old_path::Path;
-
 fn compile_chipmunk() {
-    let out = "libchipmunk.a";
-
-    let opts = gcc::Config{
-        include_directories: vec![Path::new("chipmunk/include/")],
-        definitions: vec![],
-        objects: vec![],
-        flags: vec![]
-    };
-
     let input = [
         "chipmunk/src/chipmunk.c",
         "chipmunk/src/cpArbiter.c",
@@ -49,7 +36,15 @@ fn compile_chipmunk() {
         "chipmunk/src/cpSweep1D.c",
     ];
 
-    gcc::compile_library(out, &opts, &input[..]);
+      let mut conf = gcc::Config::new();
+
+      conf.include("chipmunk/include/");
+
+      for src in &input {
+          conf.file(src);
+      }
+
+      conf.compile("libchipmunk.a");
 }
 
 /*
