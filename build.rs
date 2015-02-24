@@ -39,6 +39,7 @@ fn compile_chipmunk() {
       let mut conf = gcc::Config::new();
 
       conf.include("chipmunk/include/");
+      conf.flag("-std=c99");
 
       for src in &input {
           conf.file(src);
