@@ -10,7 +10,7 @@ pub type cpGroup = usize;
 pub type cpBitmask = ::libc::c_uint;
 pub type cpTimestamp = ::libc::c_uint;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Debug)]
 pub struct Struct_cpVect {
     pub x: cpFloat,
     pub y: cpFloat,
@@ -24,7 +24,7 @@ pub fn cpv(x: cpFloat, y: cpFloat) -> cpVect {
     cpVect{x: x, y:y}
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Debug)]
 pub struct Struct_cpTransform {
     pub a: cpFloat,
     pub b: cpFloat,
@@ -38,7 +38,7 @@ impl ::std::default::Default for Struct_cpTransform {
 }
 pub type cpTransform = Struct_cpTransform;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Debug)]
 pub struct Struct_cpMat2x2 {
     pub a: cpFloat,
     pub b: cpFloat,
@@ -74,7 +74,7 @@ pub type cpContactPointSet = Struct_cpContactPointSet;
 pub type cpArbiter = Struct_cpArbiter;
 pub type cpSpace = Struct_cpSpace;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Debug)]
 pub struct Struct_cpBB {
     pub l: cpFloat,
     pub b: cpFloat,
@@ -193,7 +193,7 @@ impl ::std::default::Default for Struct_cpSpatialIndexClass {
     }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Debug)]
 pub struct Struct_cpContactPointSet {
     pub count: ::libc::c_int,
     pub normal: cpVect,
@@ -205,7 +205,7 @@ impl ::std::default::Default for Struct_cpContactPointSet {
     }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Debug)]
 pub struct Struct_Unnamed1 {
     pub pointA: cpVect,
     pub pointB: cpVect,
@@ -240,7 +240,7 @@ pub type cpBodyArbiterIteratorFunc =
                               (body: *mut cpBody, arbiter: *mut cpArbiter,
                                data: *mut ::libc::c_void) -> ()>;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Debug)]
 pub struct Struct_cpPointQueryInfo {
     pub shape: *const cpShape,
     pub point: cpVect,
@@ -254,7 +254,7 @@ impl ::std::default::Default for Struct_cpPointQueryInfo {
 }
 pub type cpPointQueryInfo = Struct_cpPointQueryInfo;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Debug)]
 pub struct Struct_cpSegmentQueryInfo {
     pub shape: *const cpShape,
     pub point: cpVect,
@@ -268,7 +268,7 @@ impl ::std::default::Default for Struct_cpSegmentQueryInfo {
 }
 pub type cpSegmentQueryInfo = Struct_cpSegmentQueryInfo;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Debug)]
 pub struct Struct_cpShapeFilter {
     pub group: cpGroup,
     pub categories: cpBitmask,
@@ -363,7 +363,7 @@ pub type cpSpaceConstraintIteratorFunc =
                               (constraint: *mut cpConstraint,
                                data: *mut ::libc::c_void) -> ()>;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Debug)]
 pub struct Struct_cpSpaceDebugColor {
     pub r: ::libc::c_float,
     pub g: ::libc::c_float,
@@ -495,7 +495,7 @@ impl ::std::default::Default for Struct_cpBody {
     fn default() -> Struct_cpBody { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Debug)]
 pub struct Struct_Unnamed2 {
     pub root: *mut cpBody,
     pub next: *mut cpBody,

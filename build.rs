@@ -1,8 +1,11 @@
+#![feature(old_io)]
+
 extern crate gcc;
+//extern crate bindgen;
 
 use std::old_path::Path;
 
-fn main() {
+fn compile_chipmunk() {
     let out = "libchipmunk.a";
 
     let opts = gcc::Config{
@@ -46,5 +49,31 @@ fn main() {
         "chipmunk/src/cpSweep1D.c",
     ];
 
-    gcc::compile_library(out, &opts, &input[]);
+    gcc::compile_library(out, &opts, &input[..]);
+}
+
+/*
+fn run_bindgen() {
+    use bindgen::{BindgenOptions, Bindings, Logger};
+
+    struct StdLogger;
+
+    impl Logger for StdLogger {
+        fn error(&self, msg: &str) {
+            println!("ERROR: {}", msg);
+        }
+        fn warn(&self, msg: &str) {
+            println!("WARN:  {}", msg);
+        }
+    }
+
+    let bindings = Bindings::generate(BindgenOptions {
+        match_pat: vec!["cp", "chipmunk"],
+
+    }, Some(StdLogger), None);
+}*/
+
+fn main() {
+//    run_bindgen();
+    compile_chipmunk();
 }
