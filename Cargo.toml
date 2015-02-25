@@ -4,10 +4,10 @@ name = "chipmunk-sys"
 version = "0.0.1"
 authors = ["Ty Overby <ty@pre-alpha.com>"]
 
+repository = "https://github.com/TyOverby/chipmunk-sys"
+description = "System level bindings to the chipmunk 2d game engine."
+
 build = "build.rs"
 
 [build-dependencies]
 gcc = "*"
-
-#[build-dependencies.rust-bindgen]
-#git = "git@github.com:crabtw/rust-bindgen.git"
