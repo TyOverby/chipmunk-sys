@@ -1,5 +1,4 @@
 extern crate gcc;
-//extern crate bindgen;
 
 fn compile_chipmunk() {
     let input = [
@@ -48,28 +47,6 @@ fn compile_chipmunk() {
       conf.compile("libchipmunk.a");
 }
 
-/*
-fn run_bindgen() {
-    use bindgen::{BindgenOptions, Bindings, Logger};
-
-    struct StdLogger;
-
-    impl Logger for StdLogger {
-        fn error(&self, msg: &str) {
-            println!("ERROR: {}", msg);
-        }
-        fn warn(&self, msg: &str) {
-            println!("WARN:  {}", msg);
-        }
-    }
-
-    let bindings = Bindings::generate(BindgenOptions {
-        match_pat: vec!["cp", "chipmunk"],
-
-    }, Some(StdLogger), None);
-}*/
-
 fn main() {
-//    run_bindgen();
     compile_chipmunk();
 }
