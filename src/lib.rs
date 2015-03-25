@@ -1,3 +1,4 @@
+#![feature(libc)]
 extern crate libc;
 
 pub type cpFloat = ::libc::c_double;
