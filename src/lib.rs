@@ -11,7 +11,7 @@ pub type cpGroup = usize;
 pub type cpBitmask = ::libc::c_uint;
 pub type cpTimestamp = ::libc::c_uint;
 #[repr(C)]
-#[derive(Copy, Debug)]
+#[derive(Copy, Clone, Debug)]
 pub struct Struct_cpVect {
     pub x: cpFloat,
     pub y: cpFloat,
@@ -25,7 +25,7 @@ pub fn cpv(x: cpFloat, y: cpFloat) -> cpVect {
     cpVect{x: x, y:y}
 }
 #[repr(C)]
-#[derive(Copy, Debug)]
+#[derive(Copy, Clone, Debug)]
 pub struct Struct_cpTransform {
     pub a: cpFloat,
     pub b: cpFloat,
@@ -39,7 +39,7 @@ impl ::std::default::Default for Struct_cpTransform {
 }
 pub type cpTransform = Struct_cpTransform;
 #[repr(C)]
-#[derive(Copy, Debug)]
+#[derive(Copy, Clone, Debug)]
 pub struct Struct_cpMat2x2 {
     pub a: cpFloat,
     pub b: cpFloat,
@@ -75,7 +75,7 @@ pub type cpContactPointSet = Struct_cpContactPointSet;
 pub type cpArbiter = Struct_cpArbiter;
 pub type cpSpace = Struct_cpSpace;
 #[repr(C)]
-#[derive(Copy, Debug)]
+#[derive(Copy, Clone, Debug)]
 pub struct Struct_cpBB {
     pub l: cpFloat,
     pub b: cpFloat,
@@ -105,7 +105,7 @@ pub type cpSpatialIndexSegmentQueryFunc =
 pub type cpSpatialIndexClass = Struct_cpSpatialIndexClass;
 pub type cpSpatialIndex = Struct_cpSpatialIndex;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpSpatialIndex {
     pub klass: *mut cpSpatialIndexClass,
     pub bbfunc: cpSpatialIndexBBFunc,
@@ -174,7 +174,7 @@ pub type cpSpatialIndexSegmentQueryImpl =
                                func: cpSpatialIndexSegmentQueryFunc,
                                data: *mut ::libc::c_void) -> ()>;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpSpatialIndexClass {
     pub destroy: cpSpatialIndexDestroyImpl,
     pub count: cpSpatialIndexCountImpl,
@@ -194,11 +194,11 @@ impl ::std::default::Default for Struct_cpSpatialIndexClass {
     }
 }
 #[repr(C)]
-#[derive(Copy, Debug)]
+#[derive(Copy, Clone, Debug)]
 pub struct Struct_cpContactPointSet {
     pub count: ::libc::c_int,
     pub normal: cpVect,
-    pub points: [Struct_Unnamed1; 2us],
+    pub points: [Struct_Unnamed1; 2usize],
 }
 impl ::std::default::Default for Struct_cpContactPointSet {
     fn default() -> Struct_cpContactPointSet {
@@ -206,7 +206,7 @@ impl ::std::default::Default for Struct_cpContactPointSet {
     }
 }
 #[repr(C)]
-#[derive(Copy, Debug)]
+#[derive(Copy, Clone, Debug)]
 pub struct Struct_Unnamed1 {
     pub pointA: cpVect,
     pub pointB: cpVect,
@@ -241,7 +241,7 @@ pub type cpBodyArbiterIteratorFunc =
                               (body: *mut cpBody, arbiter: *mut cpArbiter,
                                data: *mut ::libc::c_void) -> ()>;
 #[repr(C)]
-#[derive(Copy, Debug)]
+#[derive(Copy, Clone, Debug)]
 pub struct Struct_cpPointQueryInfo {
     pub shape: *const cpShape,
     pub point: cpVect,
@@ -255,7 +255,7 @@ impl ::std::default::Default for Struct_cpPointQueryInfo {
 }
 pub type cpPointQueryInfo = Struct_cpPointQueryInfo;
 #[repr(C)]
-#[derive(Copy, Debug)]
+#[derive(Copy, Clone, Debug)]
 pub struct Struct_cpSegmentQueryInfo {
     pub shape: *const cpShape,
     pub point: cpVect,
@@ -269,7 +269,7 @@ impl ::std::default::Default for Struct_cpSegmentQueryInfo {
 }
 pub type cpSegmentQueryInfo = Struct_cpSegmentQueryInfo;
 #[repr(C)]
-#[derive(Copy, Debug)]
+#[derive(Copy, Clone, Debug)]
 pub struct Struct_cpShapeFilter {
     pub group: cpGroup,
     pub categories: cpBitmask,
@@ -313,7 +313,7 @@ pub type cpCollisionSeparateFunc =
                               (arb: *mut cpArbiter, space: *mut cpSpace,
                                userData: cpDataPointer) -> ()>;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpCollisionHandler {
     pub typeA: cpCollisionType,
     pub typeB: cpCollisionType,
@@ -364,7 +364,7 @@ pub type cpSpaceConstraintIteratorFunc =
                               (constraint: *mut cpConstraint,
                                data: *mut ::libc::c_void) -> ()>;
 #[repr(C)]
-#[derive(Copy, Debug)]
+#[derive(Copy, Clone, Debug)]
 pub struct Struct_cpSpaceDebugColor {
     pub r: ::libc::c_float,
     pub g: ::libc::c_float,
@@ -415,7 +415,7 @@ pub const CP_SPACE_DEBUG_DRAW_CONSTRAINTS: ::libc::c_uint = 2;
 pub const CP_SPACE_DEBUG_DRAW_COLLISION_POINTS: ::libc::c_uint = 4;
 pub type cpSpaceDebugDrawFlags = Enum_cpSpaceDebugDrawFlags;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpSpaceDebugDrawOptions {
     pub drawCircle: cpSpaceDebugDrawCircleImpl,
     pub drawSegment: cpSpaceDebugDrawSegmentImpl,
@@ -440,7 +440,7 @@ pub type cpSpaceSegmentQueryBlock = ::libc::c_void;
 pub type cpSpaceBBQueryBlock = ::libc::c_void;
 pub type cpSpaceShapeQueryBlock = ::libc::c_void;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpArray {
     pub num: ::libc::c_int,
     pub max: ::libc::c_int,
@@ -467,7 +467,7 @@ pub type cpHashSetFilterFunc =
                               (elt: *mut ::libc::c_void,
                                data: *mut ::libc::c_void) -> cpBool>;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpBody {
     pub velocity_func: cpBodyVelocityFunc,
     pub position_func: cpBodyPositionFunc,
@@ -496,7 +496,7 @@ impl ::std::default::Default for Struct_cpBody {
     fn default() -> Struct_cpBody { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
-#[derive(Copy, Debug)]
+#[derive(Copy, Clone, Debug)]
 pub struct Struct_Unnamed2 {
     pub root: *mut cpBody,
     pub next: *mut cpBody,
@@ -512,7 +512,7 @@ pub const CP_ARBITER_STATE_IGNORE: ::libc::c_uint = 2;
 pub const CP_ARBITER_STATE_CACHED: ::libc::c_uint = 3;
 pub const CP_ARBITER_STATE_INVALIDATED: ::libc::c_uint = 4;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpArbiterThread {
     pub next: *mut Struct_cpArbiter,
     pub prev: *mut Struct_cpArbiter,
@@ -521,7 +521,7 @@ impl ::std::default::Default for Struct_cpArbiterThread {
     fn default() -> Struct_cpArbiterThread { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpContact {
     pub r1: cpVect,
     pub r2: cpVect,
@@ -538,7 +538,7 @@ impl ::std::default::Default for Struct_cpContact {
     fn default() -> Struct_cpContact { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpCollisionInfo {
     pub a: *const cpShape,
     pub b: *const cpShape,
@@ -551,7 +551,7 @@ impl ::std::default::Default for Struct_cpCollisionInfo {
     fn default() -> Struct_cpCollisionInfo { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpArbiter {
     pub e: cpFloat,
     pub u: cpFloat,
@@ -577,7 +577,7 @@ impl ::std::default::Default for Struct_cpArbiter {
     fn default() -> Struct_cpArbiter { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpShapeMassInfo {
     pub m: cpFloat,
     pub i: cpFloat,
@@ -610,7 +610,7 @@ pub type cpShapeSegmentQueryImpl =
                               -> ()>;
 pub type cpShapeClass = Struct_cpShapeClass;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpShapeClass {
     pub _type: cpShapeType,
     pub cacheData: cpShapeCacheDataImpl,
@@ -622,7 +622,7 @@ impl ::std::default::Default for Struct_cpShapeClass {
     fn default() -> Struct_cpShapeClass { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpShape {
     pub klass: *const cpShapeClass,
     pub space: *mut cpSpace,
@@ -644,7 +644,7 @@ impl ::std::default::Default for Struct_cpShape {
     fn default() -> Struct_cpShape { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpCircleShape {
     pub shape: cpShape,
     pub c: cpVect,
@@ -655,7 +655,7 @@ impl ::std::default::Default for Struct_cpCircleShape {
     fn default() -> Struct_cpCircleShape { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpSegmentShape {
     pub shape: cpShape,
     pub a: cpVect,
@@ -672,7 +672,7 @@ impl ::std::default::Default for Struct_cpSegmentShape {
     fn default() -> Struct_cpSegmentShape { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpSplittingPlane {
     pub v0: cpVect,
     pub n: cpVect,
@@ -683,13 +683,13 @@ impl ::std::default::Default for Struct_cpSplittingPlane {
     }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpPolyShape {
     pub shape: cpShape,
     pub r: cpFloat,
     pub count: ::libc::c_int,
     pub planes: *mut Struct_cpSplittingPlane,
-    pub _planes: [Struct_cpSplittingPlane; 12us],
+    pub _planes: [Struct_cpSplittingPlane; 12usize],
 }
 impl ::std::default::Default for Struct_cpPolyShape {
     fn default() -> Struct_cpPolyShape { unsafe { ::std::mem::zeroed() } }
@@ -710,7 +710,7 @@ pub type cpConstraintGetImpulseImpl =
     ::std::option::Option<extern "C" fn(constraint: *mut cpConstraint)
                               -> cpFloat>;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpConstraintClass {
     pub preStep: cpConstraintPreStepImpl,
     pub applyCachedImpulse: cpConstraintApplyCachedImpulseImpl,
@@ -724,7 +724,7 @@ impl ::std::default::Default for Struct_cpConstraintClass {
 }
 pub type cpConstraintClass = Struct_cpConstraintClass;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpConstraint {
     pub klass: *const cpConstraintClass,
     pub space: *mut cpSpace,
@@ -744,7 +744,7 @@ impl ::std::default::Default for Struct_cpConstraint {
     fn default() -> Struct_cpConstraint { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpPinJoint {
     pub constraint: cpConstraint,
     pub anchorA: cpVect,
@@ -761,7 +761,7 @@ impl ::std::default::Default for Struct_cpPinJoint {
     fn default() -> Struct_cpPinJoint { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpSlideJoint {
     pub constraint: cpConstraint,
     pub anchorA: cpVect,
@@ -779,7 +779,7 @@ impl ::std::default::Default for Struct_cpSlideJoint {
     fn default() -> Struct_cpSlideJoint { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpPivotJoint {
     pub constraint: cpConstraint,
     pub anchorA: cpVect,
@@ -794,7 +794,7 @@ impl ::std::default::Default for Struct_cpPivotJoint {
     fn default() -> Struct_cpPivotJoint { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpGrooveJoint {
     pub constraint: cpConstraint,
     pub grv_n: cpVect,
@@ -813,7 +813,7 @@ impl ::std::default::Default for Struct_cpGrooveJoint {
     fn default() -> Struct_cpGrooveJoint { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpDampedSpring {
     pub constraint: cpConstraint,
     pub anchorA: cpVect,
@@ -834,7 +834,7 @@ impl ::std::default::Default for Struct_cpDampedSpring {
     fn default() -> Struct_cpDampedSpring { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpDampedRotarySpring {
     pub constraint: cpConstraint,
     pub restAngle: cpFloat,
@@ -852,7 +852,7 @@ impl ::std::default::Default for Struct_cpDampedRotarySpring {
     }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpRotaryLimitJoint {
     pub constraint: cpConstraint,
     pub min: cpFloat,
@@ -867,7 +867,7 @@ impl ::std::default::Default for Struct_cpRotaryLimitJoint {
     }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpRatchetJoint {
     pub constraint: cpConstraint,
     pub angle: cpFloat,
@@ -881,7 +881,7 @@ impl ::std::default::Default for Struct_cpRatchetJoint {
     fn default() -> Struct_cpRatchetJoint { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpGearJoint {
     pub constraint: cpConstraint,
     pub phase: cpFloat,
@@ -895,7 +895,7 @@ impl ::std::default::Default for Struct_cpGearJoint {
     fn default() -> Struct_cpGearJoint { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpSimpleMotor {
     pub constraint: cpConstraint,
     pub rate: cpFloat,
@@ -910,7 +910,7 @@ pub type cpContactBufferHeader = Struct_cpContactBufferHeader;
 pub type cpSpaceArbiterApplyImpulseFunc =
     ::std::option::Option<extern "C" fn(arb: *mut cpArbiter) -> ()>;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpSpace {
     pub iterations: ::libc::c_int,
     pub gravity: cpVect,
@@ -949,7 +949,7 @@ impl ::std::default::Default for Struct_cpSpace {
     fn default() -> Struct_cpSpace { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct Struct_cpPostStepCallback {
     pub func: cpPostStepFunc,
     pub key: *mut ::libc::c_void,
