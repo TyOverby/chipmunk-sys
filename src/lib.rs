@@ -1136,11 +1136,11 @@ extern "C" {
     pub fn cpShapeGetSpace(shape: *const cpShape) -> *mut cpSpace;
     pub fn cpShapeGetBody(shape: *const cpShape) -> *mut cpBody;
     pub fn cpShapeSetBody(shape: *mut cpShape, body: *mut cpBody) -> ();
-    pub fn cpShapeGetMass(shape: *mut cpShape) -> cpFloat;
+    pub fn cpShapeGetMass(shape: *const cpShape) -> cpFloat;
     pub fn cpShapeSetMass(shape: *mut cpShape, mass: cpFloat) -> ();
-    pub fn cpShapeGetDensity(shape: *mut cpShape) -> cpFloat;
+    pub fn cpShapeGetDensity(shape: *const cpShape) -> cpFloat;
     pub fn cpShapeSetDensity(shape: *mut cpShape, density: cpFloat) -> ();
-    pub fn cpShapeGetMoment(shape: *mut cpShape) -> cpFloat;
+    pub fn cpShapeGetMoment(shape: *const cpShape) -> cpFloat;
     pub fn cpShapeGetArea(shape: *mut cpShape) -> cpFloat;
     pub fn cpShapeGetCenterOfGravity(shape: *mut cpShape) -> cpVect;
     pub fn cpShapeGetBB(shape: *const cpShape) -> cpBB;
