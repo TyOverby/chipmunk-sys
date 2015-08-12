@@ -12,5 +12,8 @@ build = "build.rs"
 
 lib = "chipmunk_sys"
 
+[dependencies]
+libc = "*"
+
 [build-dependencies]
 gcc = "*"
