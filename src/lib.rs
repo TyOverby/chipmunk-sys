@@ -19,10 +19,16 @@ impl ::std::default::Default for Struct_cpVect {
     fn default() -> Struct_cpVect { unsafe { ::std::mem::zeroed() } }
 }
 pub type cpVect = Struct_cpVect;
+impl Struct_cpVect {
+    fn to_tuple(&self) -> (cpFloat, cpFloat) {
+        (self.x, self.y)
+    }
+}
 
 pub fn cpv(x: cpFloat, y: cpFloat) -> cpVect {
     cpVect{x: x, y:y}
 }
+
 #[repr(C)]
 #[derive(Copy, Clone, Debug)]
 pub struct Struct_cpTransform {
