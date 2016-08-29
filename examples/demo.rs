@@ -1,6 +1,6 @@
-extern crate "chipmunk-sys" as chipsys;
+extern crate chipmunk_sys;
 
-use chipsys::*;
+use chipmunk_sys::*;
 
 fn main() { unsafe {
     let gravity = cpv(0.0, -100.0);
