@@ -20,7 +20,7 @@ impl ::std::default::Default for Struct_cpVect {
 }
 pub type cpVect = Struct_cpVect;
 impl Struct_cpVect {
-    fn to_tuple(&self) -> (cpFloat, cpFloat) {
+    pub fn to_tuple(&self) -> (cpFloat, cpFloat) {
         (self.x, self.y)
     }
 }
