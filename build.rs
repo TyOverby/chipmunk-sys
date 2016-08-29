@@ -1,5 +1,7 @@
 extern crate gcc;
 
+use std::env;
+
 fn compile_chipmunk() {
     let input = [
         "chipmunk/src/chipmunk.c",
@@ -40,6 +42,12 @@ fn compile_chipmunk() {
       conf.include("chipmunk/include/");
       conf.flag("-g");
       conf.flag("-std=c99");
+
+      if let Ok(profile) = env::var("PROFILE") {
+          if "release" == profile {
+              conf.flag("-DNDEBUG");
+          }
+      }
 
       for src in &input {
           conf.file(src);
