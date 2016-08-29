@@ -40,10 +40,12 @@ fn compile_chipmunk() {
       let mut conf = gcc::Config::new();
 
       conf.include("chipmunk/include/");
-      conf.flag("-g");
       conf.flag("-std=c99");
 
       if let Ok(profile) = env::var("PROFILE") {
+          if "debug" == profile {
+            conf.flag("-g");
+          }
           if "release" == profile {
               conf.flag("-DNDEBUG");
           }
