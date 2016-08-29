@@ -21,6 +21,7 @@ fn compile_chipmunk() {
         "chipmunk/src/cpPolyShape.c",
         "chipmunk/src/cpPolyline.c",
         "chipmunk/src/cpRatchetJoint.c",
+        "chipmunk/src/cpRobust.c",
         "chipmunk/src/cpRotaryLimitJoint.c",
         "chipmunk/src/cpShape.c",
         "chipmunk/src/cpSimpleMotor.c",

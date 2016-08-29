@@ -32,10 +32,10 @@
 #endif
 
 #ifdef CP_ALLOW_PRIVATE_ACCESS
-	#undef CP_ALLOW_PRIVATE_ACCESS
 	#import "chipmunk/chipmunk_private.h"
 #else
 	#import "chipmunk/chipmunk.h"
+	#import "chipmunk/chipmunk_structs.h"
 #endif
 
 /**
