@@ -1,3 +1,6 @@
+#![allow(non_snake_case)]
+#![allow(non_camel_case_types)]
+
 extern crate libc;
 
 pub type cpFloat = ::libc::c_double;
@@ -20,7 +23,7 @@ impl ::std::default::Default for Struct_cpVect {
 }
 pub type cpVect = Struct_cpVect;
 impl Struct_cpVect {
-    fn to_tuple(&self) -> (cpFloat, cpFloat) {
+    pub fn to_tuple(&self) -> (cpFloat, cpFloat) {
         (self.x, self.y)
     }
 }
@@ -1014,7 +1017,7 @@ extern "C" {
      -> ();
     pub fn cpArbiterGetFriction(arb: *const cpArbiter) -> cpFloat;
     pub fn cpArbiterSetFriction(arb: *mut cpArbiter, friction: cpFloat) -> ();
-    pub fn cpArbiterGetSurfaceVelocity(arb: *mut cpArbiter) -> cpVect;
+    pub fn cpArbiterGetSurfaceVelocity(arb: *const cpArbiter) -> cpVect;
     pub fn cpArbiterSetSurfaceVelocity(arb: *mut cpArbiter, vr: cpVect) -> ();
     pub fn cpArbiterGetUserData(arb: *const cpArbiter) -> cpDataPointer;
     pub fn cpArbiterSetUserData(arb: *mut cpArbiter, userData: cpDataPointer)
@@ -1070,7 +1073,7 @@ extern "C" {
     pub fn cpBodySleep(body: *mut cpBody) -> ();
     pub fn cpBodySleepWithGroup(body: *mut cpBody, group: *mut cpBody) -> ();
     pub fn cpBodyIsSleeping(body: *const cpBody) -> cpBool;
-    pub fn cpBodyGetType(body: *mut cpBody) -> cpBodyType;
+    pub fn cpBodyGetType(body: *const cpBody) -> cpBodyType;
     pub fn cpBodySetType(body: *mut cpBody, _type: cpBodyType) -> ();
     pub fn cpBodyGetSpace(body: *const cpBody) -> *mut cpSpace;
     pub fn cpBodyGetMass(body: *const cpBody) -> cpFloat;
@@ -1147,8 +1150,8 @@ extern "C" {
     pub fn cpShapeGetDensity(shape: *const cpShape) -> cpFloat;
     pub fn cpShapeSetDensity(shape: *mut cpShape, density: cpFloat) -> ();
     pub fn cpShapeGetMoment(shape: *const cpShape) -> cpFloat;
-    pub fn cpShapeGetArea(shape: *mut cpShape) -> cpFloat;
-    pub fn cpShapeGetCenterOfGravity(shape: *mut cpShape) -> cpVect;
+    pub fn cpShapeGetArea(shape: *const cpShape) -> cpFloat;
+    pub fn cpShapeGetCenterOfGravity(shape: *const cpShape) -> cpVect;
     pub fn cpShapeGetBB(shape: *const cpShape) -> cpBB;
     pub fn cpShapeGetSensor(shape: *const cpShape) -> cpBool;
     pub fn cpShapeSetSensor(shape: *mut cpShape, sensor: cpBool) -> ();
@@ -1252,7 +1255,7 @@ extern "C" {
      -> cpDataPointer;
     pub fn cpConstraintSetUserData(constraint: *mut cpConstraint,
                                    userData: cpDataPointer) -> ();
-    pub fn cpConstraintGetImpulse(constraint: *mut cpConstraint) -> cpFloat;
+    pub fn cpConstraintGetImpulse(constraint: *const cpConstraint) -> cpFloat;
     pub fn cpConstraintIsPinJoint(constraint: *const cpConstraint) -> cpBool;
     pub fn cpPinJointAlloc() -> *mut cpPinJoint;
     pub fn cpPinJointInit(joint: *mut cpPinJoint, a: *mut cpBody,
@@ -1507,12 +1510,12 @@ extern "C" {
     pub fn cpSpaceRemoveBody(space: *mut cpSpace, body: *mut cpBody) -> ();
     pub fn cpSpaceRemoveConstraint(space: *mut cpSpace,
                                    constraint: *mut cpConstraint) -> ();
-    pub fn cpSpaceContainsShape(space: *mut cpSpace, shape: *mut cpShape)
+    pub fn cpSpaceContainsShape(space: *const cpSpace, shape: *const cpShape)
      -> cpBool;
-    pub fn cpSpaceContainsBody(space: *mut cpSpace, body: *mut cpBody)
+    pub fn cpSpaceContainsBody(space: *const cpSpace, body: *const cpBody)
      -> cpBool;
-    pub fn cpSpaceContainsConstraint(space: *mut cpSpace,
-                                     constraint: *mut cpConstraint) -> cpBool;
+    pub fn cpSpaceContainsConstraint(space: *const cpSpace,
+                                     constraint: *const cpConstraint) -> cpBool;
     pub fn cpSpaceAddPostStepCallback(space: *mut cpSpace,
                                       func: cpPostStepFunc,
                                       key: *mut ::libc::c_void,
@@ -1608,7 +1611,7 @@ extern "C" {
     pub fn cpArrayPop(arr: *mut cpArray) -> *mut ::libc::c_void;
     pub fn cpArrayDeleteObj(arr: *mut cpArray, obj: *mut ::libc::c_void)
      -> ();
-    pub fn cpArrayContains(arr: *mut cpArray, ptr: *mut ::libc::c_void)
+    pub fn cpArrayContains(arr: *const cpArray, ptr: *const ::libc::c_void)
      -> cpBool;
     pub fn cpArrayFreeEach(arr: *mut cpArray, freeFunc: ::libc::c_void) -> ();
     pub fn cpHashSetNew(size: ::libc::c_int, eqlFunc: cpHashSetEqlFunc)
