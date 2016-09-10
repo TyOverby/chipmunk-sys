@@ -23,6 +23,7 @@ impl ::std::default::Default for Struct_cpVect {
 }
 pub type cpVect = Struct_cpVect;
 impl Struct_cpVect {
+    #[deprecated(note="Use v.into() or From::from(v) instead of v.to_tuple().")]
     pub fn to_tuple(&self) -> (cpFloat, cpFloat) {
         (self.x, self.y)
     }
@@ -31,6 +32,41 @@ impl Struct_cpVect {
 pub fn cpv(x: cpFloat, y: cpFloat) -> cpVect {
     cpVect{x: x, y:y}
 }
+
+impl From<cpVect> for (cpFloat, cpFloat) {
+    fn from(vect: cpVect) -> (cpFloat, cpFloat) {
+        (vect.x, vect.y)
+    }
+}
+
+impl<'a> From<&'a cpVect> for (cpFloat, cpFloat) {
+    fn from(vect: &'a cpVect) -> (cpFloat, cpFloat) {
+        (vect.x, vect.y)
+    }
+}
+
+impl From<(cpFloat, cpFloat)> for cpVect {
+    fn from(tuple: (cpFloat, cpFloat)) -> cpVect {
+        cpVect { x: tuple.0, y: tuple.1 }
+    }
+}
+
+#[cfg(test)]
+#[test]
+fn test_cpvect_from_into() {
+    let v = cpVect::from((1.2, 3.4));
+    assert_eq!(1.2, v.x);
+    assert_eq!(3.4, v.y);
+    assert_eq!((1.2, 3.4), From::from(v));
+    assert_eq!((1.2, 3.4), From::from(&v));
+
+    let v2: cpVect = (5.6, 7.8).into();
+    assert_eq!(5.6, v2.x);
+    assert_eq!(7.8, v2.y);
+    assert_eq!((5.6, 7.8), v2.into());
+    assert_eq!((5.6, 7.8), (&v2).into());
+}
+
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug)]
