@@ -33,27 +33,43 @@ pub fn cpv(x: cpFloat, y: cpFloat) -> cpVect {
     cpVect{x: x, y:y}
 }
 
+// Converting cpVect to and from a tuple
 impl From<cpVect> for (cpFloat, cpFloat) {
     fn from(vect: cpVect) -> (cpFloat, cpFloat) {
         (vect.x, vect.y)
     }
 }
-
 impl<'a> From<&'a cpVect> for (cpFloat, cpFloat) {
     fn from(vect: &'a cpVect) -> (cpFloat, cpFloat) {
         (vect.x, vect.y)
     }
 }
-
 impl From<(cpFloat, cpFloat)> for cpVect {
     fn from(tuple: (cpFloat, cpFloat)) -> cpVect {
         cpVect { x: tuple.0, y: tuple.1 }
     }
 }
 
+// Converting cpVect to and from an array
+impl From<cpVect> for [cpFloat; 2] {
+    fn from(vect: cpVect) -> [cpFloat; 2] {
+        [vect.x, vect.y]
+    }
+}
+impl<'a> From<&'a cpVect> for [cpFloat; 2] {
+    fn from(vect: &'a cpVect) -> [cpFloat; 2] {
+        [vect.x, vect.y]
+    }
+}
+impl From<[cpFloat; 2]> for cpVect {
+    fn from(array: [cpFloat; 2]) -> cpVect {
+        cpVect { x: array[0], y: array[1] }
+    }
+}
+
 #[cfg(test)]
 #[test]
-fn test_cpvect_from_into() {
+fn test_cpvect_from_into_tuple() {
     let v = cpVect::from((1.2, 3.4));
     assert_eq!(1.2, v.x);
     assert_eq!(3.4, v.y);
@@ -65,6 +81,22 @@ fn test_cpvect_from_into() {
     assert_eq!(7.8, v2.y);
     assert_eq!((5.6, 7.8), v2.into());
     assert_eq!((5.6, 7.8), (&v2).into());
+}
+
+#[cfg(test)]
+#[test]
+fn test_cpvect_from_into_array() {
+    let v = cpVect::from([1.2, 3.4]);
+    assert_eq!(1.2, v.x);
+    assert_eq!(3.4, v.y);
+    assert_eq!([1.2, 3.4], <[f64; 2]>::from(v));
+    assert_eq!([1.2, 3.4], <[f64; 2]>::from(&v));
+
+    let v2: cpVect = [5.6, 7.8].into();
+    assert_eq!(5.6, v2.x);
+    assert_eq!(7.8, v2.y);
+    assert_eq!([5.6, 7.8], { let a: [f64; 2] = v2.into(); a });
+    assert_eq!([5.6, 7.8], { let a: [f64; 2] = (&v2).into(); a });
 }
 
 
