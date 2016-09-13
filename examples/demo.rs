@@ -1,6 +1,6 @@
-extern crate "chipmunk-sys" as chipsys;
+extern crate chipmunk_sys;
 
-use chipsys::*;
+use chipmunk_sys::*;
 
 fn main() { unsafe {
     let gravity = cpv(0.0, -100.0);
@@ -20,19 +20,19 @@ fn main() { unsafe {
 
   let moment = cpMomentForCircle(mass, 0.0, radius, zero);
 
-  let ballbody = cpSpaceAddBody(space, cpBodyNew(mass, moment));
-  cpBodySetPosition(ballbody, cpv(0.0, 15.0));
+  let ball_body = cpSpaceAddBody(space, cpBodyNew(mass, moment));
+  cpBodySetPosition(ball_body, cpv(0.0, 15.0));
 
-  let ballShape = cpSpaceAddShape(space, cpCircleShapeNew(ballbody, radius, zero));
-  cpShapeSetFriction(ballShape, 0.7);
+  let ball_shape = cpSpaceAddShape(space, cpCircleShapeNew(ball_body, radius, zero));
+  cpShapeSetFriction(ball_shape, 0.7);
 
-  let timeStep = 1.0 / 60.0;
+  let time_step = 1.0 / 60.0;
   for i in 0 .. 60 {
-      let time = timeStep * i as f32;
-      let pos = cpBodyGetPosition(ballbody);
-      let vel = cpBodyGetVelocity(ballbody);
+      let time = time_step * i as f32;
+      let pos = cpBodyGetPosition(ball_body);
+      let vel = cpBodyGetVelocity(ball_body);
       println!("Time: {:?}, Pos: {:?}, Vel: {:?}", time, pos, vel);
-      cpSpaceStep(space, timeStep as f64);
+      cpSpaceStep(space, time_step as f64);
   }
 
 }}

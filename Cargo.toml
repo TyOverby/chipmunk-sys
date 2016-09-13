@@ -10,8 +10,6 @@ description = "System level bindings to the chipmunk 2d game engine."
 
 build = "build.rs"
 
-lib = "chipmunk_sys"
-
 [dependencies]
 libc = "*"
 
